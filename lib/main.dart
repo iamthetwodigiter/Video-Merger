@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:video_merger/screens/home_page.dart';
 
@@ -8,6 +11,9 @@ void main() async {
   var manageStorageStatus = await Permission.manageExternalStorage.request();
 
   if (storageStatus.isGranted || manageStorageStatus.isGranted) {
+    await getExternalStorageDirectory();
+    Directory('/storage/emulated/0/Documents/MergedVideos/')
+        .createSync(recursive: true);
     runApp(const MyApp());
   } else {
     openAppSettings();

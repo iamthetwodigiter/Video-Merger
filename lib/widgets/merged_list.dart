@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:video_merger/widgets/video_tile.dart';
 
 class MergedList extends StatefulWidget {
@@ -22,12 +20,6 @@ class _MergedListState extends State<MergedList> {
   List<XFile> videoPaths = [];
 
   void _loadMergedVideos() async {
-    await getExternalStorageDirectory();
-    if (!Directory('/storage/emulated/0/Documents/MergedVideos/')
-        .existsSync()) {
-      Directory('/storage/emulated/0/Documents/MergedVideos/')
-          .createSync(recursive: true);
-    }
     final result = await getVideosFromDirectory(
         '/storage/emulated/0/Documents/MergedVideos/');
     setState(() => videoPaths = result);
